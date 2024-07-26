@@ -1,17 +1,14 @@
 import './GamePage.css';
 import image from '../../assets/images/football-logo.png'
-import playerCards from '../../assets/images/player-cards/PlayerCards';
+import { playerCards, cardBackSide } from '../../assets/images/player-cards/PlayerCards';
 import React, { useEffect, useState } from 'react';
 
+//Fisher-Yates shuffle algorithm to shuffle card-array
 function shuffleArray(array) {
     let m = array.length, t, i;
-
-    // While there remain elements to shuffle...
     while (m) {
-        // Pick a remaining element...
         i = Math.floor(Math.random() * m--);
 
-        // And swap it with the current element.
         t = array[m];
         array[m] = array[i];
         array[i] = t;
@@ -67,7 +64,39 @@ function GamePage({difficulty, setDifficulty}) {
             }
             return updatedClickedCards;
         });
-        shuffleCards();
+
+        const styles = {
+            transform: 'rotateY(180deg)'
+        }
+
+        const resetStyles = {
+            transform: 'rotateY(0deg)'
+        }
+
+        const cardElements = document.querySelectorAll('.card');
+
+        cardElements.forEach(element => {
+            // Apply flip animation
+            for (const property in styles) {
+                if (styles.hasOwnProperty(property)) {
+                    element.style[property] = styles[property];
+                }
+            }
+        });
+
+        setTimeout(() => {
+            
+            shuffleCards();
+
+            // Apply reset flip animation
+            cardElements.forEach(element => {
+                for (const property in resetStyles) {
+                    if (resetStyles.hasOwnProperty(property)) {
+                        element.style[property] = resetStyles[property];
+                    }
+                }
+            });
+        }, 1400); //timeout to match CSS animation duration
     }
 
     return (
@@ -84,7 +113,16 @@ function GamePage({difficulty, setDifficulty}) {
                 <ul className='cards-list'>
                     {randomCards.map((card, index) => (
                         <li key={index} onClick={() => playTurn(card)}>
-                            {card.image}
+                            <div className='card-container'>
+                                <div className='card'>
+                                    <div className='card-front'>
+                                        {card.image}
+                                    </div>
+                                    <div className='card-back'>
+                                        {cardBackSide}
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>

@@ -32,25 +32,62 @@
     background: linear-gradient(145deg, #FFFFFF, #7c7c7c);
     width: 12rem;
     height: 6rem;
-    
     border-radius: 15px;
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 2.2rem;
+    padding-left: 2rem;
     margin-right: 8rem;
     margin-top: -3rem;
     font-size: 1.5rem;
 }
 
-.card {
+.card-content {
+    height: 20rem;
+}
+
+.card-container {
     width: 15rem;
 }
+
+.card-container:hover > .card {
+    cursor: pointer;
+    transform: perspective(1000px);
+}
+
+.card {
+    width: 15rem;
+    position: relative;
+    transition: transform 1500ms;
+    transform-style: preserve-3d;
+}
+
+.card-front:hover {
+    transform: perspective(1000px);
+}
+
+.card-front,
+.card-back {
+  border-radius: 2rem;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.card-backside {
+    width: 15rem;
+}
+
 
 .cards-list {
     display: flex;
     flex-direction: row;
     list-style: none;
+    gap: 1rem;
 }
 
 .counter {
