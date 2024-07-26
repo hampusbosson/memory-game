@@ -32,7 +32,7 @@
     background: linear-gradient(145deg, #FFFFFF, #7c7c7c);
     width: 12rem;
     height: 6rem;
-    border: 2px solid black;
+    
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -45,4 +45,18 @@
 
 .card {
     width: 15rem;
+}
+
+.cards-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.counter {
+    display: flex;
+    justify-content: center;
+    color: white;
+    width: 100%;
+    font-size: 2rem;
 }
