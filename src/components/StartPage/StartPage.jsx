@@ -7,14 +7,14 @@ function StartPage({ setDifficulty }) {
     }
 
     return (
-        <div className="startpage-container">
+        <section className="startpage">
             <img className="start-logo" src={image} alt="game-logo" />
             <div className="difficulty-buttons">
                 <button onClick={() => toggleDifficulty('easy')}>EASY</button>
                 <button onClick={() => toggleDifficulty('medium')}>MEDIUM</button>
                 <button onClick={() => toggleDifficulty('hard')}>HARD</button>
             </div>
-        </div>
+        </section>
     )
 }
 
