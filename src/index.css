@@ -26,6 +26,9 @@ body {
   background-attachment: fixed; 
   overflow: hidden;
   font-family: 'oswald-medium';
+  margin-top: 2rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
 }
 
 body::before {
