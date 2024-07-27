@@ -4,7 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3rem;
+    gap: 1rem;
+    margin-bottom: 7rem;
 }
 
 .start-logo {

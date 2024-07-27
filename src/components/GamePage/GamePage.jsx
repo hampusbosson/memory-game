@@ -1,6 +1,7 @@
 import './GamePage.css';
 import image from '../../assets/images/football-logo.png'
 import { playerCards, cardBackSide } from '../../assets/images/player-cards/PlayerCards';
+import GameModal from '../GameModal/GameModal';
 import React, { useEffect, useState } from 'react';
 
 //Fisher-Yates shuffle algorithm to shuffle card-array
@@ -22,7 +23,7 @@ function getRandomCards(cards, count) {
     return shuffled.slice(0, count);
 }
 
-function GamePage({difficulty, setDifficulty}) {
+function GamePageContent({difficulty, setDifficulty, setGameResult}) {
     const toggleHomeButton = () => {
         setDifficulty(null);
     }
@@ -31,6 +32,7 @@ function GamePage({difficulty, setDifficulty}) {
     const [clickedCards, setClickedCards] = useState([]);
     const [bestScore, setBestScore] = useState(0);
     const [winNumber, setWinNumber] = useState(0)
+    const [gameDone, setGameDone] = useState(false);
 
     useEffect(() => {
         shuffleCards(); // Shuffle cards when the component mounts
@@ -46,7 +48,7 @@ function GamePage({difficulty, setDifficulty}) {
             setWinNumber(8);
         } else {
             numOfCards = 5; 
-            setWinNumber(12);
+            setWinNumber(13);
         }
         const newRandomCards = getRandomCards(playerCards, numOfCards);
         setRandomCards(newRandomCards);
@@ -55,11 +57,17 @@ function GamePage({difficulty, setDifficulty}) {
     function playTurn(card) {
         setClickedCards(prevClickedCards => {
             const updatedClickedCards = [...prevClickedCards, card];
-            console.log("Clicked Cards: ", updatedClickedCards); // Debug: Log clicked cards
+            if (clickedCards.length === winNumber - 1) {
+                setGameResult('Win')
+                setGameDone(true);
+                return [];
+            }
             if (prevClickedCards.some(clickedCard => clickedCard.name === card.name)) {
                 if (bestScore < clickedCards.length) {
                     setBestScore(clickedCards.length);
                 }
+                setGameResult('Lose');
+                setGameDone(true);
                 return [];
             }
             return updatedClickedCards;
@@ -85,9 +93,7 @@ function GamePage({difficulty, setDifficulty}) {
         });
 
         setTimeout(() => {
-            
             shuffleCards();
-
             // Apply reset flip animation
             cardElements.forEach(element => {
                 for (const property in resetStyles) {
@@ -97,10 +103,11 @@ function GamePage({difficulty, setDifficulty}) {
                 }
             });
         }, 1400); //timeout to match CSS animation duration
+    
     }
 
     return (
-        <section className='gamepage'>
+        <div className='gamepage-content'>
             <div className='top-container'>
                 <img className='game-logo' src={image} alt="game-logo" onClick={toggleHomeButton}/>
                 <div className='score-box'>
@@ -131,8 +138,29 @@ function GamePage({difficulty, setDifficulty}) {
                     <p>{clickedCards.length}/{winNumber}</p>
                 </div>
             </div>
+        </div>
+    )
+}
+
+function GamePage( {difficulty, setDifficulty} ) {
+    const [gameResult, setGameResult] = useState(null);
+
+    return (
+        <section className='gamepage'> 
+            < GamePageContent 
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+            setGameResult={setGameResult}
+            />
+            <GameModal 
+            gameResult={gameResult}
+            setGameResult={setGameResult}
+            setDifficulty={setDifficulty}
+            />     
         </section>
     )
 }
+
+
 
 export default GamePage;
