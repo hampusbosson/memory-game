@@ -11,7 +11,7 @@ function App() {
       {difficulty === null ? (
         <StartPage setDifficulty={setDifficulty} />
       ) : (
-        <GamePage difficulty={difficulty} />
+        <GamePage difficulty={difficulty} setDifficulty={setDifficulty} />
       )}
     </div>
   );
