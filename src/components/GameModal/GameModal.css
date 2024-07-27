@@ -1,0 +1,44 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.75); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: #e9e9e9;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 40rem; /* Maximum width */
+    height: 15rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+.modal-btns {
+    display: flex;
+    gap: 2rem;
+}
+
+.play-again-btn, .exit-btn {
+    font-size: 1.3rem;
+    width: 12rem;
+}
+
